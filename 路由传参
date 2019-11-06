@@ -1,4 +1,5 @@
- 先创建一个router对象,然后在router对象中对组件进行注册
+ //先创建一个router对象,然后在router对象中对组件进行注册
+ 
  const router = new VueRouter({
             routes: [{
                     path: "/home",
