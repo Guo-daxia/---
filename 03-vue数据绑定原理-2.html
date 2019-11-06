@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>原生js实现数据绑定</title>
+</head>
+<body>
+	
+	<div id="main">
+		<p>{{num}}</p>
+		<p>{{txt}}</p>
+		
+		<button onclick="btnClick()">点击切换数据</button>
+	</div>
+	
+	
+	<script src="js/vue.js"></script>
+	<script>
+		
+		var  main = document.getElementById("main")
+		var  template = main.innerHTML
+		function initData(){
+			
+			let num = 0
+			let txt = ""
+			Object.defineProperty(window, "num",{
+				
+				set(v){
+					console.log("num属性的set函数调用")
+					num = v
+					// 同步渲染页面
+					render()
+				},
+				get(){
+					return num
+				}
+			})
+			
+			Object.defineProperty(window, 'txt', {
+				set(v){
+					console.log("txt属性的set函数调用")
+					txt = v
+					// 同步渲染页面
+					render()
+				},
+				get(){
+					return txt
+				}
+			})
+			
+			function render(){
+				
+				let html = template
+				let reg = /{{([a-zA-Z0-9_$]+)}}/g
+				let arr
+				
+				while (arr = reg.exec(html)){
+					console.log(arr)
+					// 根据找到绑定数据名称获取window对应的属性值
+					let v = window[arr[1]]
+					html = html.replace(arr[0], v)
+				}
+				
+				main.innerHTML = html
+			}
+		}
+		
+		initData()
+		
+		// window.num = 10
+		num = 10
+		txt = "hello"
+		// num = 10
+		console.log(window.num)
+		
+		function btnClick(){
+			
+			num = 999
+			txt = "你好"
+		}
+		
+		window.a = 10
+		
+	</script>
+	
+	
+</body>
+</html>
