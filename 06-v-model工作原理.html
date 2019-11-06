@@ -1,73 +1,59 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title></title>
-</head>
-<body>
-	
-	<div id="app">
-		<input type="text" v-model="num">
-		<p>{{num}}</p>
-		
-		<!-- v-model指令 相当于 v-on:input + v-bind:value -->
-		
-		<!-- v-model中的v-bind。绑定的属性名就是value属性,绑定的数据就是v-model指向的数据 -->
-		<!-- v-model中的v-on。监听的事件名称就是input，监听方法会在输入框输入内容时触发，将事件参数赋值v-model指向的数据 -->
-		<!-- 自定义组件中可以使用v-model进行数据双向绑定，前提是必须要接受一个叫做value的传值，当传值需要修改时，需要发射input事件，将修改之后的值通过事件进行传递 -->
-		<com v-model="num"></com>
-		
-		<!-- 等同于上面的v-model数据双向绑定 -->
-		<!-- <com :num="num" @a="setNum"></com> -->
-		
+
+<div id="app">
+	<input type="text" v-model="num">
+	<p>{{num}}</p>
+
+	<!-- v-model指令 相当于 v-on:input + v-bind:value -->
+	<!-- v-model中的v-bind。绑定的属性名就是value属性,绑定的数据就是v-model指向的数据 -->
+	<!-- v-model中的v-on。监听的事件名称就是input，监听方法会在输入框输入内容时触发，将事件参数赋值v-model指向的数据 -->
+	<!-- 自定义组件中可以使用v-model进行数据双向绑定，前提是必须要接受一个叫做value的传值，当传值需要修改时，需要发射input事件，将修改之后的值通过事件进行传递 -->
+	<com v-model="num"></com>
+
+	<!-- 等同于上面的v-model数据双向绑定 -->
+	<!-- <com :num="num" @a="setNum"></com> -->
+
+</div>
+
+<script type="text/html" id="com">
+
+	<div>
+		<button @click="addClick">+</button>
+		<span>{{value}}</span>
+		<button @click="minusClick">-</button>
 	</div>
-	
-	<script type="text/html" id="com">
-		
-		<div>
-			<button @click="addClick">+</button>
-			<span>{{value}}</span>
-			<button @click="minusClick">-</button>
-		</div>
-		
-	</script>
-	
-	<script src="js/vue.js"></script>
-	<script>
-		
-		let com = {
-			template:"#com",
-			// 如果要使用v-model绑定数据进行传值,子组件中必须要有value属性
-			props:["num","value"],
-			methods:{
-				addClick(){
-					this.$emit("input", this.value + 1)
-				},
-				minusClick(){
-					this.$emit("input", this.value - 1)
-				}
+
+</script>
+
+<script src="js/vue.js"></script>
+<script>
+
+	let com = {
+		template:"#com",
+		// 如果要使用v-model绑定数据进行传值,子组件中必须要有value属性
+		props:["num","value"],
+		methods:{
+			addClick(){
+				this.$emit("input", this.value + 1)
+			},
+			minusClick(){
+				this.$emit("input", this.value - 1)
 			}
 		}
-		
-		
-		new Vue({
-			el:"#app",
-			data:{
-				num:10
-			},
-			components:{
-				com
-			},
-			methods:{
-				setNum(v){
-					this.num = v
-				}
+	}
+
+
+	new Vue({
+		el:"#app",
+		data:{
+			num:10
+		},
+		components:{
+			com
+		},
+		methods:{
+			setNum(v){
+				this.num = v
 			}
-		})
-		
-		
-	</script>
-</body>
-</html>
+		}
+	})	
+</script>
