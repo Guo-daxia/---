@@ -1,0 +1,16 @@
+
+npm install -g @vue/cli
+//执行命令来进行全局安装vue.cli
+
+// webpack打包工具的指令操作
+webpack --config webpack.config.js
+
+// webpack配置文件，必须使用nodejs模块的形式导出配置对象
+module.exports = {
+  entry: './src/index.js',
+  output: {
+      path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  }
+}
+
