@@ -1,0 +1,22 @@
+ 先创建一个router对象,然后在router对象中对组件进行注册
+ const router = new VueRouter({
+            routes: [{
+                    path: "/home",
+                    component: goods
+                },
+                {
+                    path: "/",
+                    redirect: "/home"
+                },
+                {
+                    path: "/home/:id",
+                    component: detail
+                }
+            ]
+        })
+
+//如果需要进行参数传递时,可以在路径后面加/:然后加上你的参数名称
+{
+       path: "/home/:id",
+       component: detail
+}
