@@ -5,6 +5,18 @@ npm install -g @vue/cli
 // webpack打包工具的指令操作
 webpack --config webpack.config.js
 
+//安装完成后 用 vue create XXX来创建一个项目
+//创建项目时会有多个选项，选择使用的插件，或者扩展项
+//启动时 利用 cd..进入目录  然后执行 npm run serve
+
+//src文件夹表示的是项目的所有源码，
+//src文件夹中，main.js是整个项目的入口文件，当项目运行时，vue-cli会使用webpack对main.js进行打包
+
+src文件夹中的App.vue相当于项目的根组件文件
+views文件夹中存放着所有页面级别的组件
+components文件夹中存放着普通的组件
+public文件夹存放着能浏览器直接访问的文件
+
 // webpack配置文件，必须使用nodejs模块的形式导出配置对象
 module.exports = {
   entry: './src/index.js',
