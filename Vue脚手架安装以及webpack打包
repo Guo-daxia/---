@@ -15,7 +15,12 @@ webpack --config webpack.config.js
 src文件夹中的App.vue相当于项目的根组件文件
 views文件夹中存放着所有页面级别的组件
 components文件夹中存放着普通的组件
-public文件夹存放着能浏览器直接访问的文件
+router文件夹放的是路由
+assets文件夹存放项目静态资源文件
+store文件夹存放vuex状态管理文件
+网站静态资源文件，可以放在public文件夹，也可以放在assets文件夹中
+如果放在public，只能在html中通过src属性引入
+如果放在assets，既可以通过src属性引入，也可以通过import来导入
 
 // webpack配置文件，必须使用nodejs模块的形式导出配置对象
 module.exports = {
@@ -26,3 +31,15 @@ module.exports = {
   }
 }
 
+//在vue-cli 3.0之后，项目配置文件已经隐藏，如果要修改webpack打包项，服务器配置项，需要手动在项目文件夹中创建一个vue.config.js配置文件，
+当项目启动时，vue-cli会把这个文件合并到原始的配置文件中
+
+//修改项目运行端口号
+module.exports = {
+  devSever:{
+    port:3000
+  }
+}
+//必须使用nodejs模块的形式导出配置对象
+//必须使用nodejs模块的形式导出配置对象
+//必须使用nodejs模块的形式导出配置对象
