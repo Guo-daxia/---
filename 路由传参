@@ -22,3 +22,7 @@
        path: "/home/:id",
        component: detail
 }
+//如果需要传递多个参数，在路径后面继续添加/:加上参数名称即可
+{
+   path:"/home/:id/:name"
+}
