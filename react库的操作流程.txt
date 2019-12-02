@@ -1,0 +1,35 @@
+
+1、先创建一个项目，创建完成之后，去下载redux和react-redux  npm install redux react-redux --save 
+2、下载完成之后，去index.js文件中  在 redux-react中引入 Provider 对象和自己定义的仓库文件store.js，并且用Provider对象来包括根组件 App，然后在给Provider对象添加一个store属性，值为引入的自定义的store
+3、在自定义的store文件中:
+	①、先从 redux 中引入 createStore和aplyMiddleware对象
+	②、在从自定义 reducer.js文件中引入reducer（合并函数）
+	③、if(有异步需求) npm install redux-thunk --save下载第三方插件包，后引入。 else{return}
+	④、创建一个store仓库，然后将上面引入的对象给添加到对象中
+	⑤、导出自定义的store文件
+4、自定义store文件中 引入了reducer.js文件，reducer文件主要是仓库的一些状态管理，主要是函数的形式，因为是函数形式，所以需要将所有的函数给合并到一个对象中
+	①、先从redux中引入一个用于状态合并的函数combineReducers
+	②、声明状态仓库中所需要的一些数据或者说是state（函数形式，有默认值，函数中必须返回一个state的最新值）
+	例子形式：
+	function num(state = 100, action) {
+	// switch主要用于判断action.type的不同值来return不同的state
+    	        switch (action.type) {
+        	case 'NUM_ADD':
+            	        return state + 1
+        	case 'NUM_MINUS':
+            	        return state - 1
+        	default:
+            	        return state
+    		}
+	}
+	（如果修改的值当中需要传递数据，可以将数据存贮到action中的自定义属性中，然后在case分支语句中重新返回）
+	③、将状态仓库中声明的函数状态给合并到引入的combineReducers(函数的参数是一个对象，要以键值对的形式，定义名字为reducer/其他名字)
+	④、导出自定义的reducer/其他名字
+5、组件中的引入配置，
+	①、如果在组件中需要用到仓库中的一些数据状态，先从 redux-react 中引入一个 connect对象 ，主要是用来将数据和组件进行一个连接
+	②、if(组件是类形式){return}   else {将组件改写为class类的形式}
+	③、导出组件，导出的时候注意:
+		需要通过connect函数进行改造组件，给组件添加状态映射以及action映射。（两个参数：
+		Ⅰ、// state 参数就是store中已经合并之后的仓库状态对象,函数中需要返回一个对象，对象中以键值对形式声明本组件需要使用到仓库中的哪些数据；
+		Ⅱ、// 映射action的函数。参数dispatach 用于提交action。函数最终需要返回一个对象，对象中以键值对方式添加方法映射）
+6、action.js中的配置，声明需要对数据/状态进行操作的一些函数，返回值是一个对象，如果是异步操作函数，返回值是一个函数，函数中返回异步任务的Promise对象，异步任务结束之后，将得到的数据通过action在提交一次存贮起来
